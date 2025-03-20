@@ -34,6 +34,8 @@ def get_user_answer():
         print("Respuesta no válida")
         sys.exit(1)
 
+puntaje = int (0)
+
 # El usuario deberá contestar 3 preguntas
 for juego in range(1, 4):
     separador = "*"*34
@@ -54,18 +56,24 @@ for juego in range(1, 4):
         # Verificar si la respuesta del usuario es correcta
         if user_answer == correct_answers_index[question_index]:
             print("\n¡Correcto!")
+            puntaje +=1
             break
         else:
             if intentos == 0:
                 print("Incorrecto. Segundo intento:")
+                puntaje -=0.5
                 user_answer = get_user_answer()
                 if user_answer == correct_answers_index[question_index]:
                     print("\n¡Correcto!")
+                    puntaje +=1
                     break            
                 else:
+                    puntaje -=0.5
                     opcion_correcta = int(correct_answers_index[question_index]+1)
                     respuesta_correcta = answers[question_index][correct_answers_index[question_index]]
                     print(f"Incorrecto. La respuesta correcta es la número {opcion_correcta}: {respuesta_correcta}")
                     break
+puntaje = 0 if puntaje < 0 else puntaje
+print(f"\n PUNTAJE FINAL: {puntaje}")
+print(f"\n{separador}\n FINALIZASTE EL JUEGO")
             
-
