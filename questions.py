@@ -23,7 +23,7 @@ answers = [
 correct_answers_index = [1, 2, 0, 3, 1]
 
 # Organizo las listas en una
-questions_to_ask = random.choices(list(zip(questions, answers, correct_answers_index)), k=3)
+questions_to_ask = random.sample(list(zip(questions, answers, correct_answers_index)), k=3)
 
 # Función para obtener y verificar la respuesta del usuario
 def get_user_answer():
