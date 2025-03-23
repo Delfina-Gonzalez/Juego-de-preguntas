@@ -12,15 +12,18 @@ questions = [
 
 # Respuestas posibles para cada pregunta, en el mismo orden que las preguntas
 answers = [
-    ("size()", "len()", "length()", "count()"),
-    ("3.14", "'42'", "10", "True"),
-    ("input()", "scan()", "read()", "ask()"),
-    ("// Esto es un comentario", "/* Esto es un comentario */", "-- Esto es un comentario", "# Esto es un comentario"),
-    ("=", "==", "!=", "==="),
+    ("\n1.size()", "\n2.len()", "\n3.length()", "\n4.count()"),
+    ("\n1. 3.14", "\n2. '42'", "\n3. 10", "\n4. True"),
+    ("\n1. input()", "\n2. scan()", "\n3. read()", "\n4. ask()"),
+    ("\n1. // Esto es un comentario", "\n2. /* Esto es un comentario */", "\n3. -- Esto es un comentario", "\n4. # Esto es un comentario"),
+    ("\n1. =", "\n2. ==", "\n3. !=", "\n4. ==="),
 ]
 
 # Índice de la respuesta correcta para cada pregunta, en el mismo orden que las preguntas
 correct_answers_index = [1, 2, 0, 3, 1]
+
+# Organizo las listas en una
+questions_to_ask = random.choices(list(zip(questions, answers, correct_answers_index)), k=3)
 
 # Función para obtener y verificar la respuesta del usuario
 def get_user_answer():
@@ -37,43 +40,43 @@ def get_user_answer():
 puntaje = int (0)
 
 # El usuario deberá contestar 3 preguntas
-for juego in range(1, 4):
+# Se selecciona la pregunta, opciones y respuesta correcta
+for juego, (question, options, correct_index) in enumerate(questions_to_ask, 1):
     separador = "*"*34
-    print(f"\n{separador}\nPregunta NRO {juego}")
+    print(f"\n{separador}\nPregunta NRO {juego}\n")
 
-    # Se selecciona una pregunta aleatoria
-    question_index = random.randint(0, len(questions) - 1)
-
-    # Se muestra la pregunta y las respuestas posibles
-    print(questions[question_index])
-    for i, answer in enumerate(answers[question_index]):
-        print(f"{i + 1}. {answer}")
+     # Se imprimen las preguntas y opciones
+    print(f"{question}")
+    print(" ".join(options))
 
     # El usuario tiene 2 intentos para responder correctamente
     for intentos in range(2):
         user_answer = get_user_answer()
 
         # Verificar si la respuesta del usuario es correcta
-        if user_answer == correct_answers_index[question_index]:
+        if user_answer == correct_index:
             print("\n¡Correcto!")
             puntaje +=1
             break
+         #Si no es correcta, se avanza con el segundo intento
         else:
             if intentos == 0:
-                print("Incorrecto. Segundo intento:")
+                print("Incorrecto. Proba con otra opcion:")
                 puntaje -=0.5
                 user_answer = get_user_answer()
-                if user_answer == correct_answers_index[question_index]:
+                if user_answer == correct_index:
                     print("\n¡Correcto!")
                     puntaje +=1
-                    break            
+                    break  
+                #Si vuelve a equivocarse, se muestra la opcion correcta          
                 else:
                     puntaje -=0.5
-                    opcion_correcta = int(correct_answers_index[question_index]+1)
-                    respuesta_correcta = answers[question_index][correct_answers_index[question_index]]
-                    print(f"Incorrecto. La respuesta correcta es la número {opcion_correcta}: {respuesta_correcta}")
+                    opcion_correcta = int(correct_index)+1
+                    respuesta_correcta = options[correct_index]
+                    print(f"Incorrecto, no te preocupes, la proxima vez ira mejor! \nLa respuesta correcta es la número {opcion_correcta}: {respuesta_correcta}")
                     break
+# Se devuelve el puntaje final y se informa el FIN del juego
 puntaje = 0 if puntaje < 0 else puntaje
-print(f"\n PUNTAJE FINAL: {puntaje}")
-print(f"\n{separador}\n FINALIZASTE EL JUEGO")
+print(f"\nPUNTAJE FINAL: {puntaje}")
+print(f"\n{separador}\nFINALIZASTE EL JUEGO")
             
