@@ -30,9 +30,11 @@ def get_user_answer():
     user_answer = input("\nRespuesta: ")
     
     # Verifica si la respuesta es un número y si está en el rango de respuestas posibles
-    if user_answer.isdigit() and 0<(int(user_answer))<(len(questions)):
-        user_answer = int(user_answer) - 1  # Restamos 1 porque las opciones son 1-based
-        return user_answer
+    if user_answer.isdigit(): 
+        user_answer = int(user_answer) -1# Restamos 1 porque las opciones son 1-based
+        if -1<(int(user_answer))<(len(questions)):
+            return user_answer
+    
     else:
         print("Respuesta no válida")
         sys.exit(1)
